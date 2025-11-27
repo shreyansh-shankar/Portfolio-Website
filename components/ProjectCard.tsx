@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { Project } from '../types';
 
 interface Props {
@@ -18,7 +18,7 @@ const ProjectCard: React.FC<Props> = ({ project, onClick }) => {
   const mouseX = useSpring(x, { stiffness: 500, damping: 100 });
   const mouseY = useSpring(y, { stiffness: 500, damping: 100 });
 
-  const rotateX = useTransform(mouseY, [-0.5, 0.5], [5, -5]); // Reduced tilt for bento stability
+  const rotateX = useTransform(mouseY, [-0.5, 0.5], [5, -5]);
   const rotateY = useTransform(mouseX, [-0.5, 0.5], [-5, 5]);
 
   // Glow Effect
@@ -29,8 +29,7 @@ const ProjectCard: React.FC<Props> = ({ project, onClick }) => {
     const rect = ref.current.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
-    
-    // Normalize mouse coordinates to -0.5 to 0.5 for rotation
+
     const mouseXVal = (e.clientX - rect.left) / width - 0.5;
     const mouseYVal = (e.clientY - rect.top) / height - 0.5;
 
@@ -62,61 +61,74 @@ const ProjectCard: React.FC<Props> = ({ project, onClick }) => {
       className={`relative group cursor-pointer perspective-1000 w-full h-full min-h-[300px] ${project.gridClass || 'col-span-1 row-span-1'}`}
     >
       <div 
-        className="absolute inset-0 bg-[#0e0e0e] rounded-3xl overflow-hidden border border-white/5 hover:border-white/10 transition-all duration-500 shadow-xl"
+        className="absolute inset-0 bg-[#0e0e0e] rounded-3xl overflow-hidden border border-red-900/20 hover:border-red-700/40 transition-all duration-500 shadow-xl shadow-red-900/10"
         style={{ transform: "translateZ(0)" }}
       >
-        {/* Glow Overlay */}
+        {/* 🔥 Red Glow Overlay */}
         <motion.div
-          className="absolute inset-0 z-20 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+          className="absolute inset-0 z-20 bg-gradient-to-br from-red-500/10 to-red-700/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
           style={{ maskImage }}
         />
 
-        {/* Background Image - Absolute fill */}
+        {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <motion.img 
             layoutId={`image-${project.id}`}
             src={project.imageUrl} 
             alt={project.title}
-            className="w-full h-full object-cover transform scale-105 group-hover:scale-110 transition-transform duration-700 ease-out opacity-40 group-hover:opacity-50 grayscale group-hover:grayscale-0"
+            className="w-full h-full object-cover transform scale-105 group-hover:scale-110 
+            transition-transform duration-700 ease-out opacity-40 group-hover:opacity-60 
+            grayscale group-hover:grayscale-0"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/75 to-transparent z-10" />
         </div>
 
         {/* Content */}
         <div className="absolute inset-0 z-20 p-6 flex flex-col justify-end">
           <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
             <motion.div layoutId={`title-${project.id}`}>
-               <div className="flex items-center justify-between mb-2">
-                 <h3 className="text-2xl font-bold text-white leading-tight">
-                    {project.title}
-                  </h3>
-                  <ArrowUpRight className="text-gray-500 group-hover:text-indigo-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all opacity-0 group-hover:opacity-100" size={20} />
-               </div>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-2xl font-bold text-white leading-tight drop-shadow-[0_0_10px_rgba(255,0,0,0.3)]">
+                  {project.title}
+                </h3>
+
+                {/* Red Hover Arrow */}
+                <ArrowUpRight 
+                  className="text-gray-500 group-hover:text-red-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all opacity-0 group-hover:opacity-100" 
+                  size={20} 
+                />
+              </div>
             </motion.div>
 
+            {/* Tagline */}
             <motion.p 
-              className="font-mono text-xs text-indigo-400 mb-2 uppercase tracking-widest"
+              className="font-mono text-xs text-red-400 mb-2 uppercase tracking-widest"
             >
               {project.tagline}
             </motion.p>
 
-            {/* Description - Hidden on small cards in grid unless hovered or large */}
+            {/* Description */}
             <p className="text-gray-400 text-sm leading-relaxed line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
               {project.description}
             </p>
 
+            {/* Tech Stack Badges */}
             <div className="flex flex-wrap gap-2 mt-4 opacity-80 group-hover:opacity-100 transition-opacity">
               {project.techStack.slice(0, 3).map((tech) => (
                 <span 
                   key={tech} 
-                  className="px-2 py-1 text-[10px] uppercase tracking-wider font-bold bg-white/5 border border-white/5 rounded-md text-gray-400 group-hover:border-indigo-500/30 group-hover:text-indigo-300 transition-colors"
+                  className="px-2 py-1 text-[10px] uppercase tracking-wider font-bold 
+                  bg-white/5 border border-red-700/30 rounded-md 
+                  text-gray-300 group-hover:border-red-500/50 group-hover:text-red-300 transition-colors"
                 >
                   {tech}
                 </span>
               ))}
             </div>
+
           </div>
         </div>
+
       </div>
     </motion.div>
   );
