@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, Twitter, Mail, ChevronDown, Code, Layout, Layers, Terminal as TerminalIcon, X, ExternalLink, Server, Palette } from 'lucide-react';
-import NetworkCanvas from './components/NetworkCanvas';
+import CircuitPulseMap from "./components/NetworkCanvas"; 
 import DevOpsPipeline from './components/DevOpsPipeline';
 import ProjectCard from './components/ProjectCard';
-import TerminalBot from './components/TerminalBot';
+import InteractiveTerminal from "./components/InteractiveTerminal";
 import { Project } from './types';
 
 // Bento Grid Project Data
@@ -142,6 +142,17 @@ const skillCategories = [
 const App: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
+  const phrases = [
+    "Infrastructure for scale.",
+    "Systems that never sleep.",
+    "Tools that feel alive.",
+    "Interfaces with attitude.",
+    "Future-ready automation."
+  ];
+
+  const [display, setDisplay] = useState(phrases[0]);
+  const [index, setIndex] = useState(0);
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) element.scrollIntoView({ behavior: 'smooth' });
@@ -155,9 +166,38 @@ const App: React.FC = () => {
     }
   }, [selectedProject]);
 
+  function scrambleTo(target: string) {
+    let chars = "!<>-_\\/[]{}—=+*^?#________";
+    let iterations = 0;
+
+    let interval = setInterval(() => {
+      setDisplay((prev) =>
+        prev
+          .split("")
+          .map((char, i) =>
+            i < iterations ? target[i] : chars[Math.floor(Math.random() * chars.length)]
+          )
+          .join("")
+      );
+
+      iterations += 1;
+
+      if (iterations >= target.length) clearInterval(interval);
+    }, 30);
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const next = (index + 1) % phrases.length;
+      scrambleTo(phrases[next]);
+      setIndex(next);
+    }, 2500);
+
+    return () => clearInterval(interval);
+  }, [index]);
+
   return (
     <div className="min-h-screen bg-[#050505] text-gray-200 selection:bg-indigo-500 selection:text-white font-sans">
-      {/* Navigation */}
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-40 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
         <motion.div
@@ -194,23 +234,36 @@ const App: React.FC = () => {
           </motion.div>
 
           {/* NAV LINKS */}
-          <div className="hidden md:flex gap-8 text-sm font-medium text-gray-400">
-            {["About", "Projects", "Skills", "Contact"].map((item) => (
+          <div className="hidden md:flex gap-10 text-sm font-medium text-gray-400">
+            {[
+              { label: "Vision", id: "about" },
+              { label: "Builds", id: "projects" },
+              { label: "Stack", id: "skills" },
+              { label: "Signal", id: "contact" },
+            ].map((link) => (
               <motion.button
-                key={item}
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => scrollToSection(item.toLowerCase())}
-                className="relative hover:text-white transition-colors"
+                key={link.id}
+                whileHover={{ scale: 1.18, rotate: 1 }}
+                whileTap={{ scale: 0.92 }}
+                onClick={() => scrollToSection(link.id)}
+                className="relative group"
               >
-                {item}
+                <span className="transition-colors group-hover:text-white">
+                  {link.label}
+                </span>
 
-                {/* Hover underline beam */}
+                {/* cyber underline */}
                 <motion.div
-                  className="absolute -bottom-1 left-0 right-0 h-[2px] bg-red-500 rounded-full"
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.25 }}
+                  className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-0 bg-red-500 rounded-full"
+                  initial={false}
+                  animate={{ width: 0 }}
+                  whileHover={{ width: "100%" }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                />
+
+                {/* neon glow aura */}
+                <motion.div
+                  className="absolute inset-0 rounded blur-sm bg-red-500 opacity-0 group-hover:opacity-20 transition-all"
                 />
               </motion.button>
             ))}
@@ -232,41 +285,46 @@ const App: React.FC = () => {
       </nav>
 
       {/* Hero Section */}
-      <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-        <NetworkCanvas />
+      <section
+        id="hero"
+        className="relative min-h-screen flex items-center pt-16 px-6 md:px-12"
+      >
+        <CircuitPulseMap />
 
-        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 items-center gap-12 max-w-7xl mx-auto">
+
+          {/* LEFT SIDE */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
+            className="text-left"
           >
-            <h2 className="font-mono text-red-400 mb-4 text-sm md:text-base tracking-widest uppercase">
-              Hello, I'm Shreyansh Shankar
+            <h2 className="font-mono text-red-400 mb-3 text-sm md:text-base tracking-widest uppercase">
+              I am Shreyansh Shankar
             </h2>
 
-            <h1 className="text-4xl md:text-8xl font-bold text-white mb-6 leading-tight tracking-tight">
-              Building the{" "}
-              <br className="md:hidden" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600">
-                Infrastructure
-              </span>
+            <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-4">
+              I build
               <br />
-              of the Future.
+
+              {/* Rotating text WITHOUT Typewriter */}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600">
+                {display}
+              </span>
             </h1>
 
-
-            <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 mb-10 leading-relaxed">
-              A hybrid <strong className="text-gray-200">DevOps Engineer</strong> & <strong className="text-gray-200">Creative Technologist</strong>.
-              I bridge the gap between complex backend systems and stunning user experiences.
+            <p className="text-gray-400 max-w-md text-lg leading-relaxed mb-8">
+              DevOps Engineer & Full-Stack Developer crafting high-performance systems
+              with real personality.
             </p>
 
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+            <div className="flex gap-4">
               <motion.button
                 whileHover={{ scale: 1.05, backgroundColor: "#f3f3f3" }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection("projects")}
-                className="px-8 py-3 bg-white text-black font-bold rounded hover:bg-gray-200 transition-colors w-full md:w-auto"
+                className="px-8 py-3 bg-white text-black font-bold rounded"
               >
                 View Work
               </motion.button>
@@ -274,16 +332,26 @@ const App: React.FC = () => {
               <motion.button
                 whileHover={{
                   scale: 1.05,
-                  borderColor: "#ef4444", // red-500
+                  borderColor: "#ef4444",
                   backgroundColor: "rgba(239,68,68,0.1)",
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection("contact")}
-                className="px-8 py-3 border border-gray-700 text-white font-medium rounded hover:border-red-500 transition-colors w-full md:w-auto"
+                className="px-8 py-3 border border-gray-700 text-white rounded"
               >
                 Contact Me
               </motion.button>
             </div>
+          </motion.div>
+
+          {/* RIGHT SIDE TERMINAL */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="w-full md:w-auto"
+          >
+            <InteractiveTerminal />
           </motion.div>
         </div>
 
@@ -669,9 +737,6 @@ const App: React.FC = () => {
           </footer>
         </div>
       </section>
-
-      {/* Interactive AI Bot */}
-      <TerminalBot />
     </div>
   );
 };
