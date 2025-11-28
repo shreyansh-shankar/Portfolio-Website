@@ -15,9 +15,9 @@ const projects: Project[] = [
     tagline: 'Python-Native Workflow Engine',
     description: 'Design and deploy workflows with Python-native nodes. Run automations on your machine without API costs or cloud dependencies. A local-first approach to visual programming.',
     role: 'Maintainer',
-    techStack: ['Python', 'React', 'Node.js', 'Docker'],
-    imageUrl: 'https://images.unsplash.com/photo-1494587351196-bbf5f29cff42?q=80&w=2071&auto=format&fit=crop',
-    githubUrl: '#',
+    techStack: ['Python', 'React', 'Node.js', 'Docker', 'PyQt6'],
+    imageUrl: './thumbnails/nodebox.jpeg',
+    githubUrl: 'https://github.com/shreyansh-shankar/NodeBox',
     demoUrl: 'https://nodeboxlab.web.app',
     featured: true,
     category: 'OpenSource',
@@ -30,8 +30,8 @@ const projects: Project[] = [
     tagline: 'Philosophy & Reflection',
     description: 'Have you ever found yourself awake at night, staring at the ceiling, lost in thoughts about life, purpose, or the vast unknown? At The Curious Outlook, we celebrate this space for reflection—when the world grows silent, and your curiosity takes center stage. A blog built on Next.js.',
     role: 'Creator',
-    techStack: ['Next.js', 'Tailwind', 'MDX', 'Framer Motion'],
-    imageUrl: 'https://images.unsplash.com/photo-1494587351196-bbf5f29cff42?q=80&w=2071&auto=format&fit=crop',
+    techStack: ['Next.js', 'Tailwind', 'MDX', 'Framer Motion', 'Firebase Auth', 'Google Analytics'],
+    imageUrl: './thumbnails/curious.jpg',
     demoUrl: 'https://thecuriousoutlook.vercel.app',
     featured: false,
     category: 'Design',
@@ -39,16 +39,16 @@ const projects: Project[] = [
     gridClass: 'md:col-span-1 md:row-span-2'
   },
   {
-    id: 'busmitra',
-    title: 'Bus Mitra',
-    tagline: 'Realtime Transit Tracking',
-    description: 'A realtime bus tracking service android application built for Smart India Hackathon 2024. Features live telemetry and route optimization.',
-    role: 'Android Dev',
-    techStack: ['Android', 'Kotlin', 'Firebase', 'Google Maps API'],
-    imageUrl: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2069&auto=format&fit=crop',
-    githubUrl: '#',
+    id: 'docvya',
+    title: 'DocVya',
+    tagline: 'Codebase Documentation Manager',
+    description: 'An AI-powered documentation manager that generates, organizes, and serves codebase documentation. Integrates with GitHub to keep docs in sync with code changes, making onboarding and knowledge sharing effortless.',
+    role: 'Next.js Developer',
+    techStack: ['Next.js', 'TypeScript', 'FastAPI', 'TailwindCSS', 'Supabase'],
+    imageUrl: './thumbnails/docs.webp',
+    demoUrl: 'https://docvya.com',
     featured: true,
-    category: 'Mobile',
+    category: 'FullStack',
     color: '#f59e0b',
     gridClass: 'md:col-span-1 md:row-span-1'
   },
@@ -59,8 +59,8 @@ const projects: Project[] = [
     description: 'A smart AI-based deepfake detection and analysis tool that uses advanced computer vision models to verify media authenticity.',
     role: 'AI Engineer',
     techStack: ['Python', 'PyTorch', 'OpenCV', 'FastAPI'],
-    imageUrl: 'https://images.unsplash.com/photo-1633412802994-5c058f151b66?q=80&w=2000&auto=format&fit=crop',
-    githubUrl: '#',
+    imageUrl: './thumbnails/deepfake.webp',
+    githubUrl: 'https://github.com/shreyansh-shankar/realeyes',
     featured: true,
     category: 'AI',
     color: '#ef4444',
@@ -73,8 +73,8 @@ const projects: Project[] = [
     description: 'Stashly is a minimalist desktop application built with Python - PyQt6 that lets you save, organize, and manage all kinds of web links. Add tags, categories, and notes to create your own personalized stash.',
     role: 'Developer',
     techStack: ['Python', 'PyQt6', 'SQLite'],
-    imageUrl: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=2072&auto=format&fit=crop',
-    githubUrl: '#',
+    imageUrl: './thumbnails/stashly.jpeg',
+    githubUrl: 'https://github.com/shreyansh-shankar/stashly',
     featured: false,
     category: 'OpenSource',
     color: '#10b981',
@@ -82,13 +82,12 @@ const projects: Project[] = [
   },
   {
     id: 'birsa',
-    title: 'Birsa-Setu',
+    title: 'Birsa Setu',
     tagline: 'SIH 2025 Web App',
     description: 'Another web application built for Smart India Hackathon 2025. Bridging the digital divide with accessible resource management tools.',
     role: 'Full Stack',
     techStack: ['React', 'Node.js', 'MongoDB'],
-    imageUrl: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=2069&auto=format&fit=crop',
-    githubUrl: '#',
+    imageUrl: './thumbnails/birsasetu.jpg',
     demoUrl: 'https://fra-tribal-implementation.onrender.com/',
     featured: true,
     category: 'FullStack',
@@ -102,8 +101,8 @@ const projects: Project[] = [
     description: 'taskOPS is a fast, minimalist, and distraction-free command-line task manager. Built for developers who live in the terminal.',
     role: 'Developer',
     techStack: ['Go', 'C++', 'Shell'],
-    imageUrl: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=2074&auto=format&fit=crop',
-    githubUrl: '#',
+    imageUrl: './thumbnails/taskops.jpeg',
+    githubUrl: 'https://github.com/shreyansh-shankar/taskOPS',
     featured: false,
     category: 'DevOps',
     color: '#64748b',
@@ -117,25 +116,25 @@ const skillCategories = [
     title: "DevOps & Cloud",
     icon: Server,
     color: "text-indigo-400",
-    skills: ["Docker", "Kubernetes", "AWS (EC2, S3, Lambda)", "Terraform", "GitHub Actions", "Linux (Arch/Ubuntu)", "Nginx", "Prometheus", "Grafana"]
+    skills: ["Docker", "Kubernetes", "AWS", "Terraform", "GitHub Actions", "Linux (Debian/Ubuntu)", "Nginx", "Prometheus", "Grafana"]
   },
   {
     title: "Full Stack Web",
     icon: Layers,
     color: "text-purple-400",
-    skills: ["Next.js", "React", "Node.js", "TypeScript", "FastAPI", "Flask", "TailwindCSS", "Framer Motion", "Redux Toolkit"]
+    skills: ["Next.js", "React", "Node.js", "TypeScript", "FastAPI", "Flask", "TailwindCSS", "Framer Motion", "Supabase Services", "Firebase Web Services"]
   },
   {
     title: "Languages & Core",
     icon: Code,
     color: "text-green-400",
-    skills: ["Python", "JavaScript/ES6+", "Go", "C++", "Java", "SQL", "Bash/Shell Scripting"]
+    skills: ["Python", "JavaScript/ES6+", "Golang", "C++", "Java", "SQL", "Bash/Shell Scripting", "Computer Networks", "Linux Systems", "Database Management"]
   },
   {
     title: "Tools & Creative",
     icon: Palette,
     color: "text-pink-400",
-    skills: ["Git & GitHub", "Postman", "Figma", "MongoDB", "Redis", "Vercel", "Three.js", "Blender (Basic)"]
+    skills: ["Git & GitHub", "Figma", "MongoDB", "Redis", "Vercel", "Netlify", "VSCode", "Hostinger", "Canva", "Wireshark", "Burp Suite", "Kdenlive"]
   }
 ];
 
@@ -242,47 +241,96 @@ const App: React.FC = () => {
               { label: "Vision", id: "about" },
               { label: "Builds", id: "projects" },
               { label: "Stack", id: "skills" },
-              { label: "Signal", id: "contact" },
+              { label: "Connect", id: "contact" },
             ].map((link) => (
               <motion.button
                 key={link.id}
-                whileHover={{ scale: 1.18, rotate: 1 }}
-                whileTap={{ scale: 0.92 }}
+                whileHover={{ scale: 1.25, rotate: 1 }}
+                whileTap={{ scale: 0.9 }}
                 onClick={() => scrollToSection(link.id)}
-                className="relative group"
+                className="relative group tracking-wider"
               >
-                <span className="transition-colors group-hover:text-white">
+                {/* Text with slight RGB chromatic hover */}
+                <span className="group-hover:text-white transition-all duration-300 relative">
+                  <span className="absolute left-0 top-0 text-red-600 opacity-0 group-hover:opacity-40 translate-x-[2px] translate-y-[1px]">
+                    {link.label}
+                  </span>
                   {link.label}
                 </span>
 
-                {/* cyber underline */}
+                {/* Warp underline */}
                 <motion.div
-                  className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-0 bg-red-500 rounded-full"
+                  className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-0 bg-gradient-to-r from-red-500 to-red-700 rounded-full"
                   initial={false}
                   animate={{ width: 0 }}
-                  whileHover={{ width: "100%" }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  whileHover={{ width: "120%" }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
                 />
 
-                {/* neon glow aura */}
+                {/* Neon glow aura */}
                 <motion.div
-                  className="absolute inset-0 rounded blur-sm bg-red-500 opacity-0 group-hover:opacity-20 transition-all"
+                  className="absolute inset-0 rounded blur-md bg-red-500 opacity-0 group-hover:opacity-20 transition-all"
                 />
+
+                {/* Ripple click pulse */}
+                <span className="absolute inset-0 rounded-full scale-0 group-active:scale-100 bg-red-500/20 transition-transform"></span>
               </motion.button>
             ))}
           </div>
 
-          {/* RESUME BUTTON */}
+          {/* RESUME BUTTON – Holographic Data Chip */}
           <motion.a
             href="/Resume.pdf"
             whileHover={{
-              scale: 1.08,
-              boxShadow: "0 0 18px rgba(239, 68, 68, 0.7)", // red glow
+              scale: 1.12,
+              rotate: 1,
+              boxShadow: "0 0 35px rgba(255, 50, 50, 0.85)",
             }}
             whileTap={{ scale: 0.95 }}
-            className="px-4 py-2 bg-white text-black text-sm font-bold rounded transition-all hover:bg-red-500 hover:text-white"
+            className="
+    relative px-6 py-2.5 
+    font-bold text-sm uppercase tracking-[0.15em]
+    rounded-xl 
+    bg-gradient-to-br from-black via-red-900/40 to-black
+    text-white
+    border border-red-500/50
+    shadow-[0_0_15px_rgba(255,0,0,0.45)]
+    overflow-hidden
+    group
+  "
           >
-            Resume
+            {/* 1. Hologram shimmer */}
+            <span
+              className="
+      absolute inset-0 bg-gradient-to-r
+      from-transparent via-red-400/20 to-transparent
+      translate-x-[-120%] group-hover:translate-x-[120%]
+      transition-transform duration-700 ease-out
+    "
+            ></span>
+
+            {/* 2. Outer neon ring */}
+            <span
+              className="absolute inset-0 rounded-xl border border-red-500/30 shadow-[0_0_20px_rgba(255,0,0,0.4)]"
+            />
+
+            {/* 3. Pulsing corner frames */}
+            <span className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-red-500"></span>
+            <span className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-red-500"></span>
+            <span className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-red-500"></span>
+            <span className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-red-500"></span>
+
+            {/* 4. Subtle pulse animation */}
+            <motion.span
+              animate={{ opacity: [0.3, 0.9, 0.3] }}
+              transition={{ duration: 2.5, repeat: Infinity }}
+              className="absolute inset-0 rounded-xl bg-red-500/5"
+            />
+
+            {/* Text */}
+            <span className="relative z-10 font-extrabold tracking-widest">
+              Resume
+            </span>
           </motion.a>
         </motion.div>
       </nav>
@@ -398,9 +446,9 @@ const App: React.FC = () => {
               </p>
               <p>
                 I maintain open-source tools and build resilient platforms. My philosophy?
-                Build systems that are <strong className="text-white">robust</strong> by design,
-                scale <strong className="text-white">effortlessly</strong> under load, and
-                feel <strong className="text-white">magical</strong> to use.
+                Build systems that are robust by design,
+                scale effortlessly under load, and
+                feel magical to use.
               </p>
             </div>
 
@@ -426,16 +474,47 @@ const App: React.FC = () => {
           </div>
 
 
-          <div className="relative">
+          <div className="relative w-full flex justify-center md:justify-end mt-12 md:mt-0">
             <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="aspect-square rounded-full bg-gradient-to-tr from-red-900/20 to-red-700/20 border border-white/10 relative flex items-center justify-center p-12 cursor-default"
+              whileHover={{ scale: 1.05 }}
+              className="relative w-56 h-56 rounded-full cursor-default"
             >
-              <div className="absolute inset-0 animate-[spin_10s_linear_infinite] border-2 border-dashed border-red-800 rounded-full"></div>
-              <div className="text-center z-10">
-                <p className="text-6xl font-bold text-white">6+</p>
+              {/* Layered rotating rings */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+                className="absolute inset-0 border-4 border-red-700/30 rounded-full"
+              />
+              <motion.div
+                animate={{ rotate: -360 }}
+                transition={{ repeat: Infinity, duration: 35, ease: "linear" }}
+                className="absolute inset-0 border-2 border-red-500/20 rounded-full"
+              />
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 50, ease: "linear" }}
+                className="absolute inset-0 border-2 border-red-600/10 rounded-full"
+              />
+
+              {/* Glow behind number */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-red-900/20 to-red-700/10 blur-xl"></div>
+
+              {/* Animated Number */}
+              <motion.div
+                className="relative z-10 flex flex-col items-center justify-center h-full"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+              >
+                <motion.p
+                  className="text-6xl font-bold text-white"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 120, damping: 12 }}
+                >
+                  6+
+                </motion.p>
                 <p className="text-gray-500 mt-2 uppercase tracking-wider text-sm">Years Building</p>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
