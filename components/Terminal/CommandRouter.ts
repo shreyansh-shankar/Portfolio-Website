@@ -44,7 +44,8 @@ const builtInCommands: Record<string, CommandHandler> = {
         { text: "skills     - list skills" },
         { text: "projects   - current work" },
         { text: "social     - socials" },
-        { text: "clear      - clear terminal" }
+        { text: "clear      - clear terminal" },
+        { text: "sudo       - superuser mode" }
     ],
 
     whoami: () => [

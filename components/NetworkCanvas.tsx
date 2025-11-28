@@ -1,151 +1,129 @@
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
-export default function CircuitPulseMap() {
+interface Node {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  radius: number;
+}
+
+const NetworkCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const nodesRef = useRef<Node[]>([]);
+  const NODE_COUNT = 100;
+  const MAX_DISTANCE = 150;
+
+  const mouseRef = useRef<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d", { alpha: true });
-    if (!ctx) return;
-
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
+    const canvas = canvasRef.current!;
+    const ctx = canvas.getContext("2d")!;
+    let animationFrameId: number;
 
     const resize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-      buildCircuit();
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     };
+    resize();
     window.addEventListener("resize", resize);
 
-    // Circuit Data
-    const traces: { x1: number; y1: number; x2: number; y2: number }[] = [];
-    const nodes: { x: number; y: number; pulse: number }[] = [];
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY };
+    };
+    const handleMouseLeave = () => {
+      mouseRef.current = null;
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseleave", handleMouseLeave);
 
-    const chipPads: { x: number; y: number; w: number; h: number }[] = [];
-
-    function buildCircuit() {
-      traces.length = 0;
-      nodes.length = 0;
-      chipPads.length = 0;
-
-      // Grid base spacing
-      const spacing = 80;
-      const jitter = 20;
-
-      for (let x = spacing; x < width; x += spacing) {
-        const y = spacing + Math.random() * jitter - jitter / 2;
-
-        // horizontal line
-        traces.push({
-          x1: 0,
-          y1: y,
-          x2: width,
-          y2: y,
+    // Initialize nodes only once
+    if (nodesRef.current.length === 0) {
+      for (let i = 0; i < NODE_COUNT; i++) {
+        nodesRef.current.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          radius: Math.random() * 2 + 1,
         });
       }
+    }
 
-      for (let y = spacing; y < height; y += spacing) {
-        const x = spacing + Math.random() * jitter - jitter / 2;
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // vertical line
-        traces.push({
-          x1: x,
-          y1: 0,
-          x2: x,
-          y2: height,
-        });
-      }
+      const nodes = nodesRef.current;
+      const mouse = mouseRef.current;
 
-      // Junction nodes at intersections
-      traces.forEach((t1) => {
-        traces.forEach((t2) => {
-          if (t1 === t2) return;
-          if (t1.y1 === t1.y2 && t2.x1 === t2.x2) {
-            if (
-              t2.x1 >= Math.min(t1.x1, t1.x2) &&
-              t2.x1 <= Math.max(t1.x1, t1.x2) &&
-              t1.y1 >= Math.min(t2.y1, t2.y2) &&
-              t1.y1 <= Math.max(t2.y1, t2.y2)
-            ) {
-              nodes.push({ x: t2.x1, y: t1.y1, pulse: Math.random() * 100 });
+      // Draw lines
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < MAX_DISTANCE) {
+            // line brightness increases near mouse
+            let alpha = 0.3 - dist / MAX_DISTANCE;
+            if (mouse) {
+              const mdx = (nodes[i].x + nodes[j].x) / 2 - mouse.x;
+              const mdy = (nodes[i].y + nodes[j].y) / 2 - mouse.y;
+              const mouseDist = Math.sqrt(mdx * mdx + mdy * mdy);
+              if (mouseDist < 100) alpha += 0.5 * (1 - mouseDist / 100); // boost alpha near mouse
             }
+
+            ctx.strokeStyle = `rgba(239,239,239,${Math.min(Math.max(alpha, 0), 1)})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
           }
-        });
-      });
-
-      // Chips
-      for (let i = 0; i < 6; i++) {
-        chipPads.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          w: 60 + Math.random() * 40,
-          h: 30 + Math.random() * 20,
-        });
+        }
       }
-    }
 
-    buildCircuit();
-
-    function draw() {
-      ctx.clearRect(0, 0, width, height);
-
-      // Fade glow layer
-      ctx.fillStyle = "rgba(0,0,0,0.25)";
-      ctx.fillRect(0, 0, width, height);
-
-      // Draw traces
-      ctx.strokeStyle = "rgba(150, 80, 255, 0.4)";
-      ctx.lineWidth = 2;
-
-      traces.forEach((t) => {
-        ctx.beginPath();
-        ctx.moveTo(t.x1, t.y1);
-        ctx.lineTo(t.x2, t.y2);
-        ctx.stroke();
-      });
-
-      // Draw chips
-      chipPads.forEach((chip) => {
-        ctx.fillStyle = "rgba(40, 0, 60, 0.9)";
-        ctx.fillRect(chip.x, chip.y, chip.w, chip.h);
-
-        ctx.strokeStyle = "rgba(160, 120, 255, 0.7)";
-        ctx.lineWidth = 2;
-        ctx.strokeRect(chip.x, chip.y, chip.w, chip.h);
-      });
-
-      // Pulsing nodes (LEDs)
-      nodes.forEach((n) => {
-        n.pulse += 0.05;
-        const glow = (Math.sin(n.pulse) + 1) / 2;
+      // Draw nodes and update positions
+      nodes.forEach((node) => {
+        let radius = node.radius;
+        if (mouse) {
+          const dx = node.x - mouse.x;
+          const dy = node.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 80) radius += (80 - dist) / 20; // grow near mouse
+        }
 
         ctx.beginPath();
-        ctx.arc(n.x, n.y, 4 + glow * 3, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(180, 80, 255, ${0.4 + glow * 0.6})`;
+        ctx.arc(node.x, node.y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
         ctx.fill();
+
+        node.x += node.vx;
+        node.y += node.vy;
+
+        if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+        if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
       });
 
-      requestAnimationFrame(draw);
-    }
+      animationFrameId = requestAnimationFrame(draw);
+    };
 
-    const anim = requestAnimationFrame(draw);
+    draw();
 
     return () => {
+      cancelAnimationFrame(animationFrameId);
       window.removeEventListener("resize", resize);
-      cancelAnimationFrame(anim);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 -z-10 opacity-60"
+      className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none"
     />
   );
-}
+};
+
+export default NetworkCanvas;

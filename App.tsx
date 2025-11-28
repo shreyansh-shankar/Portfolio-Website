@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, Twitter, Mail, ChevronDown, Code, Layout, Layers, Terminal as TerminalIcon, X, ExternalLink, Server, Palette } from 'lucide-react';
-import CircuitPulseMap from "./components/NetworkCanvas"; 
+import NetworkCanvas from "./components/NetworkCanvas";
 import DevOpsPipeline from './components/DevOpsPipeline';
 import ProjectCard from './components/ProjectCard';
 import InteractiveTerminal from "./components/InteractiveTerminal";
@@ -214,23 +214,26 @@ const App: React.FC = () => {
             transition={{ type: "spring", stiffness: 260, damping: 20 }}
           >
 
-            {/* Signature SS */}
-            <motion.span
-              className="font-mansalva text-5xl text-red-400 group-hover:text-red-300 transition-all"
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              SS
-            </motion.span>
+            <motion.div className="flex items-end">
+              {/* Signature SS */}
+              <motion.span
+                className="font-mansalva text-5xl text-red-600 group-hover:text-white transition-all"
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                SS
+              </motion.span>
 
-            {/* .com */}
-            <motion.span
-              className="font-mono text-lg tracking-tight text-gray-300 group-hover:text-red-400 transition-all"
-              initial={{ opacity: 0.6 }}
-              whileHover={{ opacity: 1, x: 3 }}
-            >
-              .com
-            </motion.span>
+              {/* .com */}
+              <motion.span
+                className="font-mono text-2xl font-bold tracking-wider text-gray-300 group-hover:text-red-400 transition-all relative top-1"
+                initial={{ opacity: 0.6 }}
+                whileHover={{ opacity: 1, x: 3 }}
+              >
+                <span className="text-red-300">.</span>
+                <span className="text-white group-hover:text-red-600">com</span>
+              </motion.span>
+            </motion.div>
           </motion.div>
 
           {/* NAV LINKS */}
@@ -289,7 +292,7 @@ const App: React.FC = () => {
         id="hero"
         className="relative min-h-screen flex items-center pt-16 px-6 md:px-12"
       >
-        <CircuitPulseMap />
+        <NetworkCanvas className="absolute inset-0 z-0" />
 
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 items-center gap-12 max-w-7xl mx-auto">
 
@@ -708,17 +711,6 @@ const App: React.FC = () => {
               <Linkedin size={24} />
             </motion.a>
 
-            {/* Twitter - deep red */}
-            <motion.a
-              href="#"
-              whileHover={{ y: -5, scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="p-4 bg-[#111] rounded-full text-gray-400 transition-colors shadow-lg
-                   hover:text-red-500 hover:shadow-red-500/40"
-            >
-              <Twitter size={24} />
-            </motion.a>
-
             {/* Mail - intense red */}
             <motion.a
               href="mailto:shreyanshbussiness@gmail.com"
@@ -733,7 +725,7 @@ const App: React.FC = () => {
           </div>
 
           <footer className="text-sm text-gray-600 font-mono">
-            &copy; {new Date().getFullYear()} Shreyansh Shankar. Crafted with React, Tailwind & Caffeine.
+            &copy; {new Date().getFullYear()} Shreyansh Shankar. All rights reserved.
           </footer>
         </div>
       </section>

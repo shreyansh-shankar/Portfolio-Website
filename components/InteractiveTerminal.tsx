@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { executeCommand, CommandOutput, visualCommands } from "./Terminal/CommandRouter";
-import bootLogs from "./Terminal/bootLogs";
+import { executeCommand, CommandOutput } from "./Terminal/CommandRouter";
+import bootLogs, { BootLog } from "./Terminal/bootLogs";
 
 export default function InteractiveTerminal() {
   const [history, setHistory] = useState<CommandOutput[]>([]);
@@ -37,14 +37,14 @@ export default function InteractiveTerminal() {
         return;
       }
 
-      const line = bootLogs[lineIndex];
+      const line = bootLogs[lineIndex]; // line is now a BootLog object
 
-      if (charIndex < line.length) {
-        currentLine += line[charIndex];
+      if (charIndex < line.text.length) {
+        currentLine += line.text[charIndex];  // use line.text
         charIndex++;
         setHistory(prev => [
           ...prev.slice(0, -1),
-          { text: currentLine, color: "text-green-300" }
+          { text: currentLine, color: line.color ?? "text-green-300" }  // use line.color
         ]);
         setTimeout(typeChar, 10); // adjust typing speed
       } else {
@@ -57,7 +57,6 @@ export default function InteractiveTerminal() {
       }
     }
 
-    // Start with first empty line
     setHistory([{ text: "" }]);
     typeChar();
   }, []);
@@ -98,7 +97,6 @@ export default function InteractiveTerminal() {
 
     setInput("");
   }
-
 
   // visual command output handler
   const [lastVisualCommand, setLastVisualCommand] = useState<string | null>(null);
