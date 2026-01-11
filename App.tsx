@@ -792,7 +792,7 @@ const App: React.FC = () => {
 
             {/* Mail - intense red */}
             <motion.a
-              href="mailto:shreyanshbussiness@gmail.com"
+              href="mailto:hello@shreyanshshankar.com"
               whileHover={{ y: -5, scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               className="p-4 bg-[#111] rounded-full text-gray-400 transition-colors shadow-lg
