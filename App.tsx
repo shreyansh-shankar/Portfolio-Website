@@ -280,7 +280,7 @@ const App: React.FC = () => {
 
           {/* RESUME BUTTON – Holographic Data Chip */}
           <motion.a
-            href="/Resume.pdf"
+            href="/resume.pdf"
             whileHover={{
               scale: 1.12,
               rotate: 1,
