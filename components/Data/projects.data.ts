@@ -1,0 +1,103 @@
+import { Project } from "../../types";
+
+export const projects: Project[] = [
+  {
+    id: 'nodebox',
+    title: 'NodeBox',
+    tagline: 'Python-Native Workflow Engine',
+    description: 'Design and deploy workflows with Python-native nodes. Run automations on your machine without API costs or cloud dependencies. A local-first approach to visual programming.',
+    role: 'Maintainer',
+    techStack: ['Python', 'React', 'Node.js', 'Docker', 'PyQt6'],
+    imageUrl: '/thumbnails/nodebox.jpeg',
+    githubUrl: 'https://github.com/shreyansh-shankar/NodeBox',
+    demoUrl: 'https://nodeboxlab.web.app',
+    featured: true,
+    category: 'OpenSource',
+    color: '#3b82f6',
+    gridClass: 'md:col-span-2 md:row-span-2'
+  },
+  {
+    id: 'curious',
+    title: 'The Curious Outlook',
+    tagline: 'Philosophy & Reflection',
+    description: 'Have you ever found yourself awake at night, staring at the ceiling, lost in thoughts about life, purpose, or the vast unknown? At The Curious Outlook, we celebrate this space for reflection—when the world grows silent, and your curiosity takes center stage. A blog built on Next.js.',
+    role: 'Creator',
+    techStack: ['Next.js', 'Tailwind', 'MDX', 'Framer Motion', 'Firebase Auth', 'Google Analytics'],
+    imageUrl: '/thumbnails/curious.jpg',
+    demoUrl: 'https://thecuriousoutlook.vercel.app',
+    featured: false,
+    category: 'Design',
+    color: '#a855f7',
+    gridClass: 'md:col-span-1 md:row-span-2'
+  },
+  {
+    id: 'docvya',
+    title: 'DocVya',
+    tagline: 'Codebase Documentation Manager',
+    description: 'An AI-powered documentation manager that generates, organizes, and serves codebase documentation. Integrates with GitHub to keep docs in sync with code changes, making onboarding and knowledge sharing effortless.',
+    role: 'Next.js Developer',
+    techStack: ['Next.js', 'TypeScript', 'FastAPI', 'TailwindCSS', 'Supabase'],
+    imageUrl: '/thumbnails/docs.webp',
+    demoUrl: 'https://docvya.com',
+    featured: true,
+    category: 'FullStack',
+    color: '#f59e0b',
+    gridClass: 'md:col-span-1 md:row-span-1'
+  },
+  {
+    id: 'realeyes',
+    title: 'RealEyes',
+    tagline: 'AI Deepfake Detection',
+    description: 'A smart AI-based deepfake detection and analysis tool that uses advanced computer vision models to verify media authenticity.',
+    role: 'AI Engineer',
+    techStack: ['Python', 'PyTorch', 'OpenCV', 'FastAPI'],
+    imageUrl: '/thumbnails/deepfake.webp',
+    githubUrl: 'https://github.com/shreyansh-shankar/realeyes',
+    featured: true,
+    category: 'AI',
+    color: '#ef4444',
+    gridClass: 'md:col-span-1 md:row-span-1'
+  },
+  {
+    id: 'stashly',
+    title: 'Stashly',
+    tagline: 'Minimalist Link Manager',
+    description: 'Stashly is a minimalist desktop application built with Python - PyQt6 that lets you save, organize, and manage all kinds of web links. Add tags, categories, and notes to create your own personalized stash.',
+    role: 'Developer',
+    techStack: ['Python', 'PyQt6', 'SQLite'],
+    imageUrl: '/thumbnails/stashly.jpeg',
+    githubUrl: 'https://github.com/shreyansh-shankar/stashly',
+    featured: false,
+    category: 'OpenSource',
+    color: '#10b981',
+    gridClass: 'md:col-span-2 md:row-span-1'
+  },
+  {
+    id: 'birsa',
+    title: 'Birsa Setu',
+    tagline: 'SIH 2025 Web App',
+    description: 'Another web application built for Smart India Hackathon 2025. Bridging the digital divide with accessible resource management tools.',
+    role: 'Full Stack',
+    techStack: ['React', 'Node.js', 'MongoDB'],
+    imageUrl: '/thumbnails/birsasetu.jpg',
+    demoUrl: 'https://fra-tribal-implementation.onrender.com/',
+    featured: true,
+    category: 'FullStack',
+    color: '#ec4899',
+    gridClass: 'md:col-span-1 md:row-span-1'
+  },
+  {
+    id: 'taskops',
+    title: 'TaskOPS',
+    tagline: 'CLI Task Manager',
+    description: 'taskOPS is a fast, minimalist, and distraction-free command-line task manager. Built for developers who live in the terminal.',
+    role: 'Developer',
+    techStack: ['Go', 'C++', 'Shell'],
+    imageUrl: '/thumbnails/taskops.jpeg',
+    githubUrl: 'https://github.com/shreyansh-shankar/taskOPS',
+    featured: false,
+    category: 'DevOps',
+    color: '#64748b',
+    gridClass: 'md:col-span-1 md:row-span-1'
+  }
+];
