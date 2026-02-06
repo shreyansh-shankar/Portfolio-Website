@@ -10,6 +10,7 @@ import ProjectsSection from './components/Root/Project';
 import ProjectModal from './components/Root/ProjectModal';
 import SkillsSection from "./components/Root/SkillsSection";
 import ContactSection from './components/Root/ContactSection';
+import ExperienceSection from './components/Root/Experience';
 
 const App: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -36,6 +37,7 @@ const App: React.FC = () => {
       <section id="devops" className="py-20 bg-[#0a0a0a] border-y border-red-900/20">
         <DevOpsPipeline />
       </section>
+      <ExperienceSection />
       <ProjectsSection onSelect={setSelectedProject} />
       <ProjectModal
         project={selectedProject}

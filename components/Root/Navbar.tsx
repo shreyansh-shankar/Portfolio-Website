@@ -7,6 +7,7 @@ interface NavbarProps {
 
 const navLinks = [
   { label: "Vision", id: "about" },
+  { label: "Experience", id: "experience" },
   { label: "Builds", id: "projects" },
   { label: "Stack", id: "skills" },
   { label: "Connect", id: "contact" },
