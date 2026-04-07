@@ -17,17 +17,18 @@ export const projects: Project[] = [
     gridClass: 'md:col-span-2 md:row-span-2'
   },
   {
-    id: 'curious',
-    title: 'The Curious Outlook',
-    tagline: 'Philosophy & Reflection',
-    description: 'Have you ever found yourself awake at night, staring at the ceiling, lost in thoughts about life, purpose, or the vast unknown? At The Curious Outlook, we celebrate this space for reflection—when the world grows silent, and your curiosity takes center stage. A blog built on Next.js.',
-    role: 'Creator',
-    techStack: ['Next.js', 'Tailwind', 'MDX', 'Framer Motion', 'Firebase Auth', 'Google Analytics'],
-    imageUrl: '/thumbnails/curious.jpg',
-    demoUrl: 'https://thecuriousoutlook.vercel.app',
-    featured: false,
-    category: 'Design',
-    color: '#a855f7',
+    id: 'bevenlee',
+    title: 'Bevenlee',
+    tagline: 'SaaS for Self-Directed Learners',
+    description: 'A full-stack freemium SaaS with course/topic management, embedded Excalidraw whiteboards, real-time study session tracking, tiered billing via Creem webhooks, and a community library with tokenized course sharing.',
+    role: 'Full Stack Developer',
+    techStack: ['Next.js', 'FastAPI', 'Supabase', 'PostgreSQL', 'Python'],
+    imageUrl: '/thumbnails/taskops.jpeg',
+    githubUrl: 'https://github.com/shreyansh-shankar/Bevenlee',
+    demoUrl: 'https://bevenlee.vercel.app',
+    featured: true,
+    category: 'FullStack',
+    color: '#6366f1',
     gridClass: 'md:col-span-1 md:row-span-2'
   },
   {
@@ -59,6 +60,20 @@ export const projects: Project[] = [
     gridClass: 'md:col-span-1 md:row-span-1'
   },
   {
+    id: 'curious',
+    title: 'The Curious Outlook',
+    tagline: 'Philosophy & Reflection',
+    description: 'Have you ever found yourself awake at night, staring at the ceiling, lost in thoughts about life, purpose, or the vast unknown? At The Curious Outlook, we celebrate this space for reflection—when the world grows silent, and your curiosity takes center stage. A blog built on Next.js.',
+    role: 'Creator',
+    techStack: ['Next.js', 'Tailwind', 'MDX', 'Framer Motion', 'Firebase Auth', 'Google Analytics'],
+    imageUrl: '/thumbnails/curious.jpg',
+    demoUrl: 'https://thecuriousoutlook.vercel.app',
+    featured: false,
+    category: 'Design',
+    color: '#a855f7',
+    gridClass: 'md:col-span-2 md:row-span-1'
+  },
+  {
     id: 'stashly',
     title: 'Stashly',
     tagline: 'Minimalist Link Manager',
@@ -70,7 +85,7 @@ export const projects: Project[] = [
     featured: false,
     category: 'OpenSource',
     color: '#10b981',
-    gridClass: 'md:col-span-2 md:row-span-1'
+    gridClass: 'md:col-span-1 md:row-span-1'
   },
   {
     id: 'birsa',
@@ -86,18 +101,4 @@ export const projects: Project[] = [
     color: '#ec4899',
     gridClass: 'md:col-span-1 md:row-span-1'
   },
-  {
-    id: 'taskops',
-    title: 'TaskOPS',
-    tagline: 'CLI Task Manager',
-    description: 'taskOPS is a fast, minimalist, and distraction-free command-line task manager. Built for developers who live in the terminal.',
-    role: 'Developer',
-    techStack: ['Go', 'C++', 'Shell'],
-    imageUrl: '/thumbnails/taskops.jpeg',
-    githubUrl: 'https://github.com/shreyansh-shankar/taskOPS',
-    featured: false,
-    category: 'DevOps',
-    color: '#64748b',
-    gridClass: 'md:col-span-1 md:row-span-1'
-  }
 ];
