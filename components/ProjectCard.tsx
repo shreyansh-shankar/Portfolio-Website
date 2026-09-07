@@ -1,7 +1,8 @@
-import React, { useRef } from 'react';
-import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
-import { Project } from '../types';
+import React from "react";
+import { motion } from "framer-motion";
+import { ExternalLink, Github, Sparkles, PenTool } from "lucide-react";
+import { Project } from "../types";
+import { Tape, RubberStamp } from "./Doodles";
 
 interface Props {
   project: Project;
@@ -9,126 +10,100 @@ interface Props {
 }
 
 const ProjectCard: React.FC<Props> = ({ project, onClick }) => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  // 3D Tilt Logic
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseX = useSpring(x, { stiffness: 500, damping: 100 });
-  const mouseY = useSpring(y, { stiffness: 500, damping: 100 });
-
-  const rotateX = useTransform(mouseY, [-0.5, 0.5], [5, -5]);
-  const rotateY = useTransform(mouseX, [-0.5, 0.5], [-5, 5]);
-
-  // Glow Effect
-  const maskImage = useMotionTemplate`radial-gradient(350px at ${mouseX.get() * 100 + 50}% ${mouseY.get() * 100 + 50}%, white, transparent)`;
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-
-    const mouseXVal = (e.clientX - rect.left) / width - 0.5;
-    const mouseYVal = (e.clientY - rect.top) / height - 0.5;
-
-    x.set(mouseXVal);
-    y.set(mouseYVal);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
   return (
     <motion.div
-      ref={ref}
       layoutId={`card-${project.id}`}
       onClick={() => onClick(project)}
-      initial={{ opacity: 0, scale: 0.95 }}
-      whileInView={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={`relative group cursor-pointer perspective-1000 w-full h-full min-h-[300px] ${project.gridClass || 'col-span-1 row-span-1'}`}
+      whileHover={{ y: -6, rotate: 0.5 }}
+      transition={{ duration: 0.3 }}
+      className={`relative group cursor-pointer w-full ${project.gridClass || "col-span-1 row-span-1"}`}
     >
-      <div 
-        className="absolute inset-0 bg-[#0e0e0e] rounded-3xl overflow-hidden border border-red-900/20 hover:border-red-700/40 transition-all duration-500 shadow-xl shadow-red-900/10"
-        style={{ transform: "translateZ(0)" }}
-      >
-        {/* 🔥 Red Glow Overlay */}
-        <motion.div
-          className="absolute inset-0 z-20 bg-gradient-to-br from-red-500/10 to-red-700/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-          style={{ maskImage }}
-        />
+      {/* CARD CONTAINER: Looks like a taped polaroid / index sheet */}
+      <div className="bg-[#fffdf7] sketch-border p-5 sketch-shadow h-full flex flex-col justify-between relative overflow-hidden transition-all group-hover:sketch-shadow-lg">
+        {/* Scotch Tape at top */}
+        <Tape className="-top-3 left-8" rotation="-rotate-3" />
+        {project.stamp && (
+          <div className="absolute top-4 right-4 z-20">
+            <RubberStamp text={project.stamp} color="red" rotation="rotate-3" className="text-[11px]" />
+          </div>
+        )}
 
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <motion.img 
-            layoutId={`image-${project.id}`}
-            src={project.imageUrl} 
-            alt={project.title}
-            className="w-full h-full object-cover transform scale-105 group-hover:scale-110 
-            transition-transform duration-700 ease-out opacity-40 group-hover:opacity-60 
-            grayscale group-hover:grayscale-0"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/75 to-transparent z-10" />
-        </div>
-
-        {/* Content */}
-        <div className="absolute inset-0 z-20 p-6 flex flex-col justify-end">
-          <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-            <motion.div layoutId={`title-${project.id}`}>
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-2xl font-bold text-white leading-tight drop-shadow-[0_0_10px_rgba(255,0,0,0.3)]">
-                  {project.title}
-                </h3>
-
-                {/* Red Hover Arrow */}
-                <ArrowUpRight 
-                  className="text-gray-500 group-hover:text-red-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all opacity-0 group-hover:opacity-100" 
-                  size={20} 
-                />
-              </div>
-            </motion.div>
-
-            {/* Tagline */}
-            <motion.p 
-              className="font-mono text-xs text-red-400 mb-2 uppercase tracking-widest"
-            >
-              {project.tagline}
-            </motion.p>
-
-            {/* Description */}
-            <p className="text-gray-400 text-sm leading-relaxed line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-              {project.description}
-            </p>
-
-            {/* Tech Stack Badges */}
-            <div className="flex flex-wrap gap-2 mt-4 opacity-80 group-hover:opacity-100 transition-opacity">
-              {project.techStack.slice(0, 3).map((tech) => (
-                <span 
-                  key={tech} 
-                  className="px-2 py-1 text-[10px] uppercase tracking-wider font-bold 
-                  bg-white/5 border border-red-700/30 rounded-md 
-                  text-gray-300 group-hover:border-red-500/50 group-hover:text-red-300 transition-colors"
-                >
-                  {tech}
-                </span>
-              ))}
+        <div>
+          {/* POLAROID PHOTO CONTAINER */}
+          <div className="relative bg-white p-2.5 sketch-border-sm mb-4 shadow-inner">
+            <div className="relative aspect-video w-full overflow-hidden rounded-xs bg-zinc-100 border border-zinc-300">
+              <motion.img
+                layoutId={`image-${project.id}`}
+                src={project.imageUrl}
+                alt={project.title}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 filter grayscale group-hover:grayscale-0"
+              />
+              <div className="absolute inset-0 bg-yellow-500/5 group-hover:opacity-0 transition-opacity" />
             </div>
 
+            {/* Handwritten Polaroid Caption */}
+            {project.diaryNote && (
+              <div className="pt-2 text-center flex items-center justify-center gap-1.5">
+                <PenTool size={12} className="text-zinc-500 shrink-0" />
+                <span className="font-doodle text-sm font-bold text-zinc-700">
+                  "{project.diaryNote}"
+                </span>
+              </div>
+            )}
           </div>
+
+          {/* PROJECT TITLE & TAGLINE */}
+          <div className="space-y-1 mb-3">
+            <div className="flex items-baseline justify-between gap-2">
+              <motion.h3
+                layoutId={`title-${project.id}`}
+                className="font-marker text-2xl text-zinc-900 leading-tight group-hover:text-red-600 transition-colors"
+              >
+                {project.title}
+              </motion.h3>
+              <span className="font-mono text-xs font-bold text-zinc-500 uppercase">
+                [{project.category}]
+              </span>
+            </div>
+
+            <p className="font-hand font-bold text-sm text-red-600 leading-snug">
+              {project.tagline}
+            </p>
+          </div>
+
+          {/* CANDID DESCRIPTION */}
+          <p className="font-journal text-base text-zinc-700 leading-snug line-clamp-3 mb-4">
+            {project.description}
+          </p>
         </div>
 
+        {/* BOTTOM METRICS & TECH BADGES */}
+        <div className="pt-3 border-t border-dashed border-zinc-300 space-y-3">
+          {/* Tech tags */}
+          <div className="flex flex-wrap gap-1.5">
+            {project.techStack.map((tech) => (
+              <span
+                key={tech}
+                className="px-2 py-0.5 text-[11px] font-hand font-bold bg-[#fef9c3] border border-zinc-900 rounded-xs text-zinc-900"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          {/* Action Row */}
+          <div className="flex items-center justify-between pt-1">
+            <span className="font-doodle text-xs font-bold text-zinc-600">
+              Role: {project.role}
+            </span>
+            <span className="font-hand font-bold text-xs text-zinc-900 group-hover:text-red-600 flex items-center gap-1">
+              Open Case File →
+            </span>
+          </div>
+        </div>
       </div>
     </motion.div>
   );

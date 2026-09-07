@@ -5,69 +5,161 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="/favicon.png" />
-  <title>Shreyansh Shankar | Creative Technologist</title>
+  <title>Shreyansh Shankar | Diary of a Code Kid</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Patrick+Hand&family=Permanent+Marker&display=swap"
     rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Fascinate+Inline&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --paper-bg: #fbf8ef;
+      --paper-line: rgba(79, 131, 204, 0.18);
+      --margin-line: rgba(239, 68, 68, 0.35);
+      --ink-color: #1a1a1a;
+    }
 
-    .font-mansalva {
-      font-family: 'Fascinate Inline', cursive;
+    html {
+      zoom: 1.15;
     }
 
     body {
-      background-color: #050505;
-      color: #e5e5e5;
-      font-family: 'Space Grotesk', sans-serif;
+      background-color: #ede8d5;
+      color: var(--ink-color);
+      font-family: 'Patrick Hand', 'Architects Daughter', cursive, sans-serif;
       overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    .perspective-book {
+      perspective: 2000px;
+      perspective-origin: center top;
+    }
+
+    .font-journal {
+      font-family: 'Patrick Hand', cursive, sans-serif;
+    }
+
+    .font-hand {
+      font-family: 'Architects Daughter', cursive, sans-serif;
+    }
+
+    .font-doodle {
+      font-family: 'Caveat', cursive, sans-serif;
+    }
+
+    .font-marker {
+      font-family: 'Permanent Marker', cursive, sans-serif;
     }
 
     .font-mono {
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Custom Scrollbar */
+    /* Lined Notebook Paper Background */
+    .lined-paper {
+      background-color: var(--paper-bg);
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 31px,
+        var(--paper-line) 31px,
+        var(--paper-line) 32px
+      );
+      background-attachment: local;
+      line-height: 32px;
+    }
+
+    /* Red Margin Line on the left */
+    .notebook-page {
+      position: relative;
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.08);
+    }
+
+    .margin-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 56px;
+      width: 2px;
+      background-color: var(--margin-line);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    @media (max-width: 640px) {
+      .margin-line {
+        left: 28px;
+      }
+    }
+
+    /* Wimpy Kid Sketchy Borders */
+    .sketch-border {
+      border: 2.5px solid #1a1a1a;
+      border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    }
+
+    .sketch-border-sm {
+      border: 2px solid #1a1a1a;
+      border-radius: 120px 10px 140px 10px/10px 130px 10px 120px;
+    }
+
+    .sketch-shadow {
+      box-shadow: 4px 4px 0px #1a1a1a;
+    }
+
+    .sketch-shadow-sm {
+      box-shadow: 2.5px 2.5px 0px #1a1a1a;
+    }
+
+    .sketch-shadow-lg {
+      box-shadow: 6px 6px 0px #1a1a1a;
+    }
+
+    /* Tape strip */
+    .tape-strip {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(2px);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+      border-left: 1px dashed rgba(0,0,0,0.15);
+      border-right: 1px dashed rgba(0,0,0,0.15);
+    }
+
+    /* Highlighter effect */
+    .highlight-yellow {
+      background: linear-gradient(104deg, rgba(254, 240, 138, 0) 0.9%, rgba(254, 240, 138, 0.95) 2.4%, rgba(254, 240, 138, 0.8) 98%);
+      padding: 0 4px;
+      border-radius: 2px;
+    }
+
+    /* Custom Scrollbar in Diary Theme */
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 10px;
     }
 
     ::-webkit-scrollbar-track {
-      background: #0a0a0a;
+      background: #ede8d5;
     }
 
     ::-webkit-scrollbar-thumb {
-      background: #333;
-      border-radius: 4px;
+      background: #1a1a1a;
+      border-radius: 5px;
+      border: 2px solid #ede8d5;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: #555;
-    }
-
-    .text-glow {
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-    }
-
-    .grid-bg {
-      background-size: 50px 50px;
-      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background: #3f3f46;
     }
 
     ::selection {
-      background: none !important; 
-      color: rgb(250, 67, 67) !important;
-      text-shadow: 0 0 5px rgb(255, 92, 92);
+      background: #fde047 !important; 
+      color: #111827 !important;
     }
 
     ::-moz-selection {
-      background: none !important;
-      color: rgb(248, 65, 65) !important;
-      text-shadow: 0 0 5px rgb(255, 92, 92);
+      background: #fde047 !important;
+      color: #111827 !important;
     }
   </style>
   <script type="importmap">

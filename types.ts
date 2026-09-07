@@ -9,9 +9,11 @@ export interface Project {
   githubUrl?: string;
   demoUrl?: string;
   featured: boolean;
-  category: 'FullStack' | 'DevOps' | 'OpenSource' | 'Design' | 'AI' | 'Mobile';
+  category: 'FullStack' | 'DevOps' | 'OpenSource' | 'Design' | 'AI' | 'Mobile' | 'Writing';
   color?: string; // Hex code for accent color
   gridClass?: string; // Tailwind classes for Bento Grid (e.g., 'col-span-2 row-span-2')
+  diaryNote?: string;
+  stamp?: string;
 }
 
 export interface Experience {
